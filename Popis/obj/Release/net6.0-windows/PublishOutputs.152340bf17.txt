@@ -1,0 +1,10 @@
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\Popis.exe
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\Popis.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\Popis.deps.json
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\Popis.runtimeconfig.json
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\Popis.pdb
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\DocumentFormat.OpenXml.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\MaterialDesignColors.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\MaterialDesignThemes.Wpf.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\Newtonsoft.Json.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\publish\SpreadsheetLight.dll

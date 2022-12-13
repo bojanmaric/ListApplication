@@ -1,0 +1,7 @@
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\win-x86\Popis.pdb
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\win-x86\D3DCompiler_47_cor3.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\win-x86\PenImc_cor3.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\win-x86\PresentationNative_cor3.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\win-x86\vcruntime140_cor3.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\win-x86\wpfgfx_cor3.dll
+C:\Users\Bojan\source\repos\Popis\Listing-application\Popis\bin\Release\net6.0-windows\win-x86\Popis.exe

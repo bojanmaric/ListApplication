@@ -1,0 +1,7 @@
+C:\Users\Bojan\Desktop\Popis.pdb
+C:\Users\Bojan\Desktop\D3DCompiler_47_cor3.dll
+C:\Users\Bojan\Desktop\PenImc_cor3.dll
+C:\Users\Bojan\Desktop\PresentationNative_cor3.dll
+C:\Users\Bojan\Desktop\vcruntime140_cor3.dll
+C:\Users\Bojan\Desktop\wpfgfx_cor3.dll
+C:\Users\Bojan\Desktop\Popis.exe
