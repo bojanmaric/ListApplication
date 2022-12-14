@@ -449,7 +449,8 @@ public partial class MainWindow : Window
 
         private void txtFilter_KeyUp(object sender, KeyEventArgs e)
         {
-            var filtered = articles.Where<Article>(artikal => artikal.naziv.ToUpper().StartsWith(txtFilter.Text.ToUpper())|| artikal.sifra.ToUpper().StartsWith(txtFilter.Text.ToUpper()) || artikal.cena.ToString().ToUpper().StartsWith(txtFilter.Text.ToUpper()));
+            //var filtered = articles.Where<Article>(artikal => artikal.naziv.ToUpper().StartsWith(txtFilter.Text.ToUpper())|| artikal.sifra.ToUpper().StartsWith(txtFilter.Text.ToUpper()) || artikal.cena.ToString().ToUpper().StartsWith(txtFilter.Text.ToUpper()));
+            var filtered = articles.Where<Article>(artikal => artikal.naziv.ToUpper().Contains(txtFilter.Text.ToUpper()) || artikal.sifra.ToUpper().Contains(txtFilter.Text.ToUpper()) || artikal.cena.ToString().ToUpper().Contains(txtFilter.Text.ToUpper()));
             dataGridList.ItemsSource= filtered;
         }
 
