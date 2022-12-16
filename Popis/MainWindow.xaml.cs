@@ -327,6 +327,11 @@ public partial class MainWindow : Window
 
 
         }
+        /// <summary>
+        /// nesto
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFile_Click(object sender, RoutedEventArgs e)
         {
 
@@ -347,6 +352,8 @@ public partial class MainWindow : Window
                     {
                         //"barkod":"1","porez":20.000000,"jedinica_mere":"KOM","cena":1400.000000,
                         //"naziv":"PVC PLAFONJRA 18W","sifra":"11950","vrsta_artikla":4},
+
+                        //dodavanje necega ...
 
                         if (art["kolicina"] > -1)
                         {
@@ -410,7 +417,7 @@ public partial class MainWindow : Window
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Došlo je do greške", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Došlo je do greške", "Greška", MessageBoxButton.OK, MessageBoxImage.Information);
                     throw;
                 }
 
@@ -422,6 +429,11 @@ public partial class MainWindow : Window
 
 
         }
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDeleteCell_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Da li ste sigurni?", "Brisanje", MessageBoxButton.YesNo, MessageBoxImage.Question);
