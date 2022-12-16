@@ -450,13 +450,22 @@ public partial class MainWindow : Window
 
         }
 
+        /// <summary>
+        /// filtriranje podataka ...
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtFilter_KeyUp(object sender, KeyEventArgs e)
         {
             //var filtered = articles.Where<Article>(artikal => artikal.naziv.ToUpper().StartsWith(txtFilter.Text.ToUpper())|| artikal.sifra.ToUpper().StartsWith(txtFilter.Text.ToUpper()) || artikal.cena.ToString().ToUpper().StartsWith(txtFilter.Text.ToUpper()));
             var filtered = articles.Where<Article>(artikal => artikal.naziv.ToUpper().Contains(txtFilter.Text.ToUpper()) || artikal.sifra.ToUpper().Contains(txtFilter.Text.ToUpper()) || artikal.cena.ToString().ToUpper().Contains(txtFilter.Text.ToUpper()));
             dataGridList.ItemsSource= filtered;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Da li ste sigurni?", "Brisanje", MessageBoxButton.YesNo, MessageBoxImage.Question);
