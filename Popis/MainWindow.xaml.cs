@@ -76,6 +76,7 @@ public partial class MainWindow : Window
             lblLastEdited.Content = "";
             lblArticleName.Content = "";
             lblLastQuantity.Content = "";
+            lblPrice.Content = "";
             txtIDArticle.Focus();
         }
 
@@ -156,6 +157,7 @@ public partial class MainWindow : Window
                         lblLastEdited.Content = txtIDArticle.Text;
                         lblArticleName.Content = articles[i].naziv;
                         lblLastQuantity.Content = txtQuantity.Text;
+                        lblPrice.Content = articles[i].cena;
 
                         Empty();
                     }
@@ -185,7 +187,7 @@ public partial class MainWindow : Window
                             lblLastEdited.Content = txtIDArticle.Text;
                             lblArticleName.Content = articles[i].naziv;
                             lblLastQuantity.Content = txtQuantity.Text;
-
+                            lblPrice.Content = articles[i].cena;
                             Empty();
                         }
                         else {
@@ -196,7 +198,7 @@ public partial class MainWindow : Window
                             lblLastEdited.Content = txtIDArticle.Text;
                             lblArticleName.Content = articles[i].naziv;
                             lblLastQuantity.Content = txtQuantity.Text;
-
+                            lblPrice.Content = articles[i].cena;
                             Empty();
                         }
                         
@@ -238,6 +240,7 @@ public partial class MainWindow : Window
                     lblArticleName.Content = article.naziv;
                     lblLastQuantity.Content = txtQuantity.Text;
                     lblLastEdited.Content = txtIDArticle.Text;
+                    lblPrice.Content = article.cena;
                     Empty();
                 }
                 else
