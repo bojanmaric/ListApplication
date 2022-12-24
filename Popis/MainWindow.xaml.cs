@@ -514,5 +514,10 @@ public partial class MainWindow : Window
                 btnAddCell_Click(sender, e);
             }
         }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

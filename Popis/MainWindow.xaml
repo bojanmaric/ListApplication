@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
 
 
-        <Grid Grid.Row="0" Height="100" VerticalAlignment="Top">
+        <Grid Grid.Row="0" Height="100" VerticalAlignment="Top" MouseDown="Grid_MouseDown">
             <Label Content="File" HorizontalAlignment="Left" Margin="16,6,0,0" 
                     VerticalAlignment="Top" RenderTransformOrigin="0.347,0.537" Height="26" Width="28"/>
 

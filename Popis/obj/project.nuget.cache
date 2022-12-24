@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LSKXLF6HMM0QO4cpex11qHDKT2QCUp6tbrYWMJtht4HAFiBfxw2kcQ9+xUvY0087h0aabOqT7qdzsN+HarRjQg==",
+  "dgSpecHash": "/4wnacGIu1QzqMTP50y3Di8txUdLsHNIBWZbuSG4xCTcxOX0KqtZLV6yugpLNnIRDR714d9OENiGKDmvCIJNmA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Bojan\\source\\repos\\ListApplication\\Popis\\Popis.csproj",
   "expectedPackageFiles": [
@@ -12,7 +12,10 @@
     "C:\\Users\\Bojan\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\Bojan\\.nuget\\packages\\spreadsheetlight\\3.5.0\\spreadsheetlight.3.5.0.nupkg.sha512",
     "C:\\Users\\Bojan\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512",
-    "C:\\Users\\Bojan\\.nuget\\packages\\system.io.packaging\\4.7.0\\system.io.packaging.4.7.0.nupkg.sha512"
+    "C:\\Users\\Bojan\\.nuget\\packages\\system.io.packaging\\4.7.0\\system.io.packaging.4.7.0.nupkg.sha512",
+    "C:\\Users\\Bojan\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\6.0.8\\microsoft.netcore.app.runtime.win-x86.6.0.8.nupkg.sha512",
+    "C:\\Users\\Bojan\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\6.0.8\\microsoft.windowsdesktop.app.runtime.win-x86.6.0.8.nupkg.sha512",
+    "C:\\Users\\Bojan\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\6.0.8\\microsoft.aspnetcore.app.runtime.win-x86.6.0.8.nupkg.sha512"
   ],
   "logs": []
 }
