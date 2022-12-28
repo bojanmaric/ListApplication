@@ -420,6 +420,11 @@ public partial class MainWindow : Window
                         }
                     }
 
+                    if (articles.Count > 0)
+                    {
+                        btnFile.IsEnabled = false;
+                    }
+
                 }
                 catch (Exception)
                 {
