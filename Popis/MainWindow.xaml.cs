@@ -38,22 +38,22 @@ namespace Popis
 
         public double kolicina { get; set; }
         public string sifra { get; set; }
-      
+
         public int vrsta_artikla { get; set; }
-       
+
 
     }
-public partial class MainWindow : Window
+    public partial class MainWindow : Window
     {
 
         DataTable dt;
-        public List<Article> articles = new List<Article>();
+        public List<Article> articles;
 
-        public string fileNameSave="";
+        public string fileNameSave = "";
         public MainWindow()
         {
             InitializeComponent();
-
+            articles = new List<Article>();
             dt = new DataTable();
 
             dt.Columns.Add("Barkod");
@@ -64,8 +64,8 @@ public partial class MainWindow : Window
             dt.Columns.Add("Kolicina");
             dt.Columns.Add("Sifra");
             dt.Columns.Add("Vrsta akrtikla");
-            
-           
+
+
             dataGridList.ItemsSource = dt.DefaultView;
 
             // When is data filtered to work double click
@@ -77,11 +77,12 @@ public partial class MainWindow : Window
             lblLastEdited.Content = "";
             lblArticleName.Content = "";
             lblLastQuantity.Content = "";
+            lblSaveTime.Content = "";
             lblPrice.Content = "";
             txtIDArticle.Focus();
         }
 
-       
+
         // Control text box is it input only decimal numbers
         private void txtQuantity_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -144,17 +145,17 @@ public partial class MainWindow : Window
         private void btnAddCell_Click(object sender, RoutedEventArgs e)
         {
             bool finded = false;
-            if (txtIDArticle.Text != "" &&txtArticleName.Text=="")
+            if (txtIDArticle.Text != "" && txtArticleName.Text == "")
             // Case when user change only quantity for specify barcode
             {
                 for (int i = 0; i < articles.Count; i++)
                 {
-                    if(articles[i].barkod == txtIDArticle.Text)
+                    if (articles[i].barkod == txtIDArticle.Text)
                     {
                         finded = true;
                         articles[i].kolicina = articles[i].kolicina + Int32.Parse(txtQuantity.Text);
                         // update quantity of filtered field in both case
-                        dt.Rows[i][5]=articles[i].kolicina;
+                        dt.Rows[i][5] = articles[i].kolicina;
                         lblLastEdited.Content = txtIDArticle.Text;
                         lblArticleName.Content = articles[i].naziv;
                         lblLastQuantity.Content = txtQuantity.Text;
@@ -164,10 +165,11 @@ public partial class MainWindow : Window
                     }
 
                 }
-                
 
 
-            }else if (txtIDArticle.Text != "" && txtArticleName.Text != "" && txtPrice.Text != "")
+
+            }
+            else if (txtIDArticle.Text != "" && txtArticleName.Text != "" && txtPrice.Text != "")
             {
                 // Case when user select item and should change price and total quantity
                 for (int i = 0; i < articles.Count; i++)
@@ -175,13 +177,13 @@ public partial class MainWindow : Window
                     if (articles[i].barkod == txtIDArticle.Text)
                     {
                         finded = true;
-                        articles[i].cena=double.Parse(txtPrice.Text);
+                        articles[i].cena = double.Parse(txtPrice.Text);
 
                         dt.Rows[i][3] = articles[i].cena;
 
                         if (txtCurrentAmount.Text != articles[i].kolicina.ToString())
                         {
-                            articles[i].kolicina=double.Parse(txtCurrentAmount.Text);
+                            articles[i].kolicina = double.Parse(txtCurrentAmount.Text);
                             // update quantity of filtered field in both case
                             dt.Rows[i][5] = articles[i].kolicina;
 
@@ -191,7 +193,8 @@ public partial class MainWindow : Window
                             lblPrice.Content = articles[i].cena;
                             Empty();
                         }
-                        else {
+                        else
+                        {
                             articles[i].kolicina = articles[i].kolicina + Int32.Parse(txtQuantity.Text);
                             // update quantity of filtered field in both case
                             dt.Rows[i][5] = articles[i].kolicina;
@@ -202,27 +205,27 @@ public partial class MainWindow : Window
                             lblPrice.Content = articles[i].cena;
                             Empty();
                         }
-                        
+
                     }
 
                 }
-                
+
             }
 
             if (!finded)
             {
-                if (txtArticleName.Text != "" && txtIDArticle.Text != "" && txtPrice.Text != "" && txtQuantity.Text!="")
+                if (txtArticleName.Text != "" && txtIDArticle.Text != "" && txtPrice.Text != "" && txtQuantity.Text != "")
                 {
                     Article article = new Article()
                     {
                         barkod = txtIDArticle.Text,
-                        sifra=  txtIDArticle.Text,
-                        vrsta_artikla=4,
-                        naziv=txtArticleName.Text,
-                        cena=double.Parse( txtPrice.Text),
-                        kolicina=double.Parse(txtQuantity.Text),
-                        porez=20,
-                        jedinica_mere="KOM"
+                        sifra = txtIDArticle.Text,
+                        vrsta_artikla = 4,
+                        naziv = txtArticleName.Text,
+                        cena = double.Parse(txtPrice.Text),
+                        kolicina = double.Parse(txtQuantity.Text),
+                        porez = 20,
+                        jedinica_mere = "KOM"
                     };
                     articles.Add(article);
                     DataRow dr = dt.NewRow();
@@ -233,7 +236,7 @@ public partial class MainWindow : Window
                     dr[3] = article.cena;
                     dr[4] = article.naziv;
                     dr[5] = article.kolicina;
-                    dr[6] =article.barkod;
+                    dr[6] = article.barkod;
                     dr[7] = article.vrsta_artikla;
 
 
@@ -248,7 +251,7 @@ public partial class MainWindow : Window
                 {
                     MessageBox.Show("Polja Naziv, Kolicina, Cena, Sifra MORAJU BITI POPUNJENA", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                
+
 
             }
 
@@ -261,16 +264,16 @@ public partial class MainWindow : Window
             txtCurrentAmount.Clear();
             txtPrice.Clear();
             txtCurrentAmount.IsEnabled = false;
-          
+
             btnDeleteCell.IsEnabled = false;
             txtIDArticle.Focus();
-         
+
         }
         //function where we need to add new article in list and also add new row in data grid
         public void displayData()
         {
             // double rabat = double.Parse(txtDiscount.Text);
-           
+
         }
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
@@ -310,7 +313,7 @@ public partial class MainWindow : Window
 
                 excel.SaveAs($"{pathFile}.xlsx");
 
-                File.WriteAllText(@$"{pathFile}.json", JsonConvert.SerializeObject( articles));
+                File.WriteAllText(@$"{pathFile}.json", JsonConvert.SerializeObject(articles));
 
                 MessageBox.Show("Uspešno kreiran fajl", "Obaveštenje", MessageBoxButton.OK, MessageBoxImage.Information);
                 Process process = new Process();
@@ -341,18 +344,18 @@ public partial class MainWindow : Window
             file.ShowDialog();
 
 
-           
+
             if (file.FileName != "")
             {
                 fileNameSave = file.FileName.ToString();
-                
-                txtFile.Text=file.FileName.ToString();
+
+                txtFile.Text = file.FileName.ToString();
                 btnSave.IsEnabled = true;
 
                 try
                 {
 
-                    dynamic fajl  = JsonConvert.DeserializeObject(File.ReadAllText(file.FileName));
+                    dynamic fajl = JsonConvert.DeserializeObject(File.ReadAllText(file.FileName));
 
                     foreach (var art in fajl)
                     {
@@ -459,7 +462,7 @@ public partial class MainWindow : Window
                     Article selectedArtical = (Article)dataGridList.SelectedItem;
                     articles.Remove(selectedArtical);
                     dt.Rows.RemoveAt(dataGridList.SelectedIndex);
-                    
+
                 }
                 else
                 {
@@ -467,7 +470,7 @@ public partial class MainWindow : Window
 
                     dt.Rows.RemoveAt(dataGridList.SelectedIndex);
                 }
-                    
+
                 Empty();
             }
 
@@ -482,7 +485,7 @@ public partial class MainWindow : Window
         {
             //var filtered = articles.Where<Article>(artikal => artikal.naziv.ToUpper().StartsWith(txtFilter.Text.ToUpper())|| artikal.sifra.ToUpper().StartsWith(txtFilter.Text.ToUpper()) || artikal.cena.ToString().ToUpper().StartsWith(txtFilter.Text.ToUpper()));
             var filtered = articles.Where<Article>(artikal => artikal.naziv.ToUpper().Contains(txtFilter.Text.ToUpper()) || artikal.sifra.ToUpper().Contains(txtFilter.Text.ToUpper()) || artikal.cena.ToString().ToUpper().Contains(txtFilter.Text.ToUpper()));
-            dataGridList.ItemsSource= filtered;
+            dataGridList.ItemsSource = filtered;
         }
         /// <summary>
         /// 
@@ -491,12 +494,33 @@ public partial class MainWindow : Window
         /// <param name="e"></param>
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Da li ste sigurni?", "Brisanje", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (result == MessageBoxResult.Yes)
+
+            if (fileNameSave != "")
             {
-              
+                MessageBoxResult result = MessageBox.Show("Da li zelite da sačuvate pre izlaska?", "Sačuvati", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+
+
+                    File.WriteAllText(@$"{fileNameSave}", JsonConvert.SerializeObject(articles));
+
+
+                    Environment.Exit(0);
+
+                }
+                else
+                {
+                    Environment.Exit(0);
+
+                }
+
+            }
+            else
+            {
                 Environment.Exit(0);
+
             }
         }
 
@@ -535,7 +559,7 @@ public partial class MainWindow : Window
 
             if (fileNameSave != "")
             {
-                
+
 
                 File.WriteAllText(@$"{fileNameSave}", JsonConvert.SerializeObject(articles));
                 lblSaveTime.Content = $"Zadnji put: {DateTime.UtcNow.ToString("HH:mm dd/MM/yyyy")}";
