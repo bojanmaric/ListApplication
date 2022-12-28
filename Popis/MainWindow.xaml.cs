@@ -49,7 +49,7 @@ public partial class MainWindow : Window
         DataTable dt;
         public List<Article> articles = new List<Article>();
 
-
+        public string fileNameSave="";
         public MainWindow()
         {
             InitializeComponent();
@@ -72,6 +72,7 @@ public partial class MainWindow : Window
             dataGridList.BeginningEdit += (s, ss) => ss.Cancel = true;
             txtQuantity.Text = "1";
             txtCurrentAmount.IsEnabled = false;
+            btnSave.IsEnabled = false;
 
             lblLastEdited.Content = "";
             lblArticleName.Content = "";
@@ -339,10 +340,15 @@ public partial class MainWindow : Window
             file.Filter = "Json files (*.json)|*.json|Text files (*.txt)|*.txt";
             file.ShowDialog();
 
+
            
             if (file.FileName != "")
             {
-                txtFile.Text=file.FileName;
+                fileNameSave = file.FileName.ToString();
+                
+                txtFile.Text=file.FileName.ToString();
+                btnSave.IsEnabled = true;
+
                 try
                 {
 
@@ -484,11 +490,10 @@ public partial class MainWindow : Window
 
             if (result == MessageBoxResult.Yes)
             {
+              
                 Environment.Exit(0);
             }
         }
-
-     
 
         private void btnClean_Click(object sender, RoutedEventArgs e)
         {
@@ -518,6 +523,25 @@ public partial class MainWindow : Window
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (fileNameSave != "")
+            {
+                
+
+                File.WriteAllText(@$"{fileNameSave}", JsonConvert.SerializeObject(articles));
+                lblSaveTime.Content = $"Zadnji put: {DateTime.UtcNow.ToString("HH:mm dd/MM/yyyy")}";
+
+            }
+            else
+            {
+                MessageBox.Show("Niste učitali JSON file", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
         }
     }
 }
