@@ -22,6 +22,7 @@
         ShowInTaskbar="True">
     <Grid>
 
+        
         <!-- To show application in task bar while is in running proccess ShowInTaskbar="True"-->
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
@@ -49,7 +50,7 @@
                      Margin="66,3,0,0"
                      TextWrapping="Wrap"
                      VerticalAlignment="Top"
-                     Width="380"
+                     Width="302"
                      IsEnabled="False"
                      Height="27" />
             <Button x:Name="btnFile"
@@ -60,26 +61,29 @@
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
                     VerticalAlignment="Top"
                     Height="24"
-                    Width="379"
+                    Width="302"
                     IsEnabled="True"
                     Click="btnFile_Click" />
 
             <Button x:Name="btnExit"
-                    Content="Napusti &#xD;&#xA;program"
+                    Content="X"
                     Cursor="Hand"
                     HorizontalAlignment="Left"
-                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    Margin="776,13,0,0"
+                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                    Margin="872,8,0,0"
+                    Width="35"
+                    Height="35"
+                    FontSize="20"
+                    FontWeight="ExtraBold"
                     VerticalAlignment="Top"
-                    Height="62"
-                    Width="128"
+                    BorderBrush="#FFDA3929"
                     Background="#FFDA3929"
                     BorderThickness="0,0,0,0"
                     Click="btnExit_Click" />
 
             <Label Content="Zadnji izmenjen"
                    HorizontalAlignment="Left"
-                   Margin="460,4,0,0"
+                   Margin="443,4,0,0"
                    VerticalAlignment="Top"
                    FontSize="16"
                    FontWeight="Bold"
@@ -90,7 +94,7 @@
                    Foreground="Green"
                    FontSize="20"
                    HorizontalAlignment="Left"
-                   Margin="637,4,0,0"
+                   Margin="614,1,0,0"
                    VerticalAlignment="Top"
                    FontWeight="ExtraBold"
                    Height="28"
@@ -100,11 +104,11 @@
                    Foreground="Green"
                    FontSize="12"
                    HorizontalAlignment="Left"
-                   Margin="467,65,0,0"
+                   Margin="448,65,0,0"
                    VerticalAlignment="Top"
                    FontWeight="ExtraBold"
                    Height="27"
-                   Width="199" />
+                   Width="310" />
             <Label Content="Š"
                    FontSize="20"
                    HorizontalAlignment="Left"
@@ -134,7 +138,7 @@
             <Label Content="Cena"
                    FontSize="20"
                    HorizontalAlignment="Left"
-                   Margin="471,34,0,0"
+                   Margin="454,34,0,0"
                    VerticalAlignment="Top"
                    FontWeight="Bold"
                    Height="28"
@@ -144,7 +148,7 @@
                    Foreground="Green"
                    FontSize="20"
                    HorizontalAlignment="Left"
-                   Margin="525,0,0,0"
+                   Margin="508,0,0,0"
                    VerticalAlignment="Center"
                    FontWeight="ExtraBold"
                    Height="28"
@@ -172,7 +176,7 @@
                      FontWeight="Bold"
                      KeyUp="txtIDArticle_KeyUp" />
 
-            <Label Content="+ Komada"
+            <Label Content="+/- Komada"
                    HorizontalAlignment="Left"
                    Margin="152,55,0,0"
                    VerticalAlignment="Top"
@@ -237,7 +241,7 @@
                     IsEnabled="{Binding DataContext.ControlsEnabled,
                     RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Height="45"
-                    Width="158"
+                    Width="120"
                     Background="#FF2C6AEE"
                     FontStretch="Normal"
                     FlowDirection="LeftToRight"
@@ -248,7 +252,7 @@
                     BorderBrush="#FFA7A2EA"
                     BorderThickness="0,0,0,0" />
             <Button x:Name="btnDeleteCell"
-                    Content="IZBRIŠI &#xD;&#xA;STAVKU"
+                    Content="IZBRIŠI STAVKU"
                     Cursor="Hand"
                     HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
@@ -263,12 +267,12 @@
 
             <Button x:Name="btnGenerate"
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    Content="KREIRAJ&#xA;  EXCEL &#xA;   FAJL "
+                    Content="   KREIRAJ EXCEL FAJL &#xA;ARTIKLE SA KOLIČINOM"
                     Cursor="Hand"
-                    Margin="722,109,0,0"
-                    Height="59"
+                    Margin="722,87,0,0"
+                    Height="46"
                     Width="177"
-                    FontSize="14"
+                    FontSize="12"
                     Click="btnGenerate_Click"
                     Background="#189510"
                     BorderThickness="0"
@@ -292,11 +296,11 @@
                    Width="63"
                    FontWeight="Bold" />
             <Button x:Name="btnClean"
-                    Content="IZBRISI POLJA"
+                    Content="OČISTI POLJA"
                     Cursor="Hand"
                     HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    Margin="455,78,0,0"
+                    Margin="455,64,0,0"
                     VerticalAlignment="Top"
                     Height="41"
                     Width="140"
@@ -305,7 +309,7 @@
                     Click="btnClean_Click" />
             <Button x:Name="btnSave"
                     HorizontalAlignment="Left"
-                    Margin="734,22,0,0"
+                    Margin="735,6,0,0"
                     VerticalAlignment="Top"
                     Height="45"
                     Width="158"
@@ -336,13 +340,45 @@
             </Button>
             <Label x:Name="lblSaveTime"
                    HorizontalAlignment="Right"
-                   Margin="0,74,31,0"
+                   Margin="0,56,8,0"
                    VerticalAlignment="Top"
                    FontSize="12"
                    FontWeight="ExtraBold"
                    Foreground="#FF2C6AEE"
                    Content="Zadnji put: "
-                   Width="153" />
+                   Width="181" />
+            <Button x:Name="btnRemove"
+                    TabIndex="3"
+                    Content="ODUZMI &#xD;&#xA;STAVKU"
+                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                    HorizontalAlignment="Left"
+                    Margin="176,125,0,0"
+                    VerticalAlignment="Top"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                    Height="45"
+                    Width="120"
+                    Background="#FFDA3929"
+                    BorderThickness="0,0,0,0"
+                    FontStretch="Normal"
+                    FlowDirection="LeftToRight"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Cursor="Hand"
+                    BorderBrush="#FFA7A2EA"
+                    Click="btnRemove_Click" />
+            <Button x:Name="btnGenerateAllArticles"
+                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                    Content="  KREIRAJ EXEL &#xD;&#xA;SVIH ARTIKALA"
+                    Cursor="Hand"
+                    Margin="733,143,0,0"
+                    Height="46"
+                    Width="158"
+                    FontSize="12"
+                    Background="#176510"
+                    BorderThickness="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Click="btnGenerateAllArticles_Click" />
         </Grid>
         <Grid Grid.Row="2"
               Height="400"
@@ -352,22 +388,51 @@
                       Margin="10"
                       MouseDoubleClick="dataGridList_MouseDoubleClick" />
 
+            <Expander x:Name="explanderLog"
+                      ExpandDirection="Down"
+                      FontSize="20"
+                      Background="Silver"
+                      IsExpanded="False"
+                      VerticalAlignment="Bottom"
+                      Margin="0,0,0,-20">
+                <Expander.Header>
+                    <BulletDecorator>
+                        <TextBlock HorizontalAlignment="Center"
+                                   Foreground="White"
+                                   FontWeight="ExtraBlack">ISTORIJA</TextBlock>
 
+                    </BulletDecorator>
+
+                </Expander.Header>
+
+                <Expander.Content>
+                    <ScrollViewer  Background="#d3d3d3"
+                                   Height="200"
+                                   VerticalAlignment="Top">
+                        <TextBlock x:Name="txtLog"
+                                   FontSize="13"
+                                   Margin="10,0,0,0"></TextBlock>
+
+                    </ScrollViewer>
+                </Expander.Content>
+            </Expander>
         </Grid>
+
+
         <TextBox x:Name="txtFilter"
                  HorizontalAlignment="Left"
-                 Margin="246,134,0,0"
+                 Margin="356,139,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top"
                  Width="269"
-                 Height="31"
+                 Height="37"
                  FontSize="16"
                  FontWeight="Bold"
                  Grid.Row="1"
                  KeyUp="txtFilter_KeyUp" />
         <Label Content="Pretraga"
                HorizontalAlignment="Left"
-               Margin="337,118,0,0"
+               Margin="455,128,0,0"
                VerticalAlignment="Top"
                Height="26"
                Width="63"
