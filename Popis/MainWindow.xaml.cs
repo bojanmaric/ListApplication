@@ -94,40 +94,52 @@ namespace Popis
 
         private void dataGridList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (dataGridList.SelectedIndex > -1)
+            try
             {
-
-                if (txtFilter.Text != "")
+                if (dataGridList.SelectedIndex > -1)
                 {
 
-                    Article selectedArtical = (Article)dataGridList.SelectedItem;
+                    if (txtFilter.Text != "")
+                    {
 
-                    txtIDArticle.Text = selectedArtical.barkod;
+                        Article selectedArtical = (Article)dataGridList.SelectedItem;
 
-                    txtArticleName.Text = selectedArtical.naziv;
-                    txtCurrentAmount.Text = selectedArtical.kolicina.ToString();
-                    txtPrice.Text = selectedArtical.cena.ToString();
-                    txtQuantity.Text = "0";
-                    txtCurrentAmount.IsEnabled = true;
-                    // txtArticleName.IsEnabled = true;
-                    txtPrice.IsEnabled = true;
-                    btnDeleteCell.IsEnabled = true;
+                        txtIDArticle.Text = selectedArtical.barkod;
 
+                        txtArticleName.Text = selectedArtical.naziv;
+                        txtCurrentAmount.Text = selectedArtical.kolicina.ToString();
+                        txtPrice.Text = selectedArtical.cena.ToString();
+                        txtQuantity.Text = "0";
+                        txtCurrentAmount.IsEnabled = true;
+                        // txtArticleName.IsEnabled = true;
+                        txtPrice.IsEnabled = true;
+                        btnDeleteCell.IsEnabled = true;
+
+                    }
+                    else
+                    {
+                        txtIDArticle.Text = articles[dataGridList.SelectedIndex].barkod;
+
+                        txtArticleName.Text = articles[dataGridList.SelectedIndex].naziv;
+                        txtCurrentAmount.Text = articles[dataGridList.SelectedIndex].kolicina.ToString();
+                        txtPrice.Text = articles[dataGridList.SelectedIndex].cena.ToString();
+                        txtQuantity.Text = "0";
+                        txtCurrentAmount.IsEnabled = true;
+                        // txtArticleName.IsEnabled = true;
+                        txtPrice.IsEnabled = true;
+                        btnDeleteCell.IsEnabled = true;
+
+                    }
                 }
-                else
-                {
-                    txtIDArticle.Text = articles[dataGridList.SelectedIndex].barkod;
+            }
+            catch (Exception ex)
+            {
+                UpdateLog($"Greska {ex.InnerException} \n {ex.Message}");
 
-                    txtArticleName.Text = articles[dataGridList.SelectedIndex].naziv;
-                    txtCurrentAmount.Text = articles[dataGridList.SelectedIndex].kolicina.ToString();
-                    txtPrice.Text = articles[dataGridList.SelectedIndex].cena.ToString();
-                    txtQuantity.Text = "0";
-                    txtCurrentAmount.IsEnabled = true;
-                    // txtArticleName.IsEnabled = true;
-                    txtPrice.IsEnabled = true;
-                    btnDeleteCell.IsEnabled = true;
+                MessageBox.Show($"{ex.InnerException}");
 
-                }
+                btnSave_Click(sender, e);
+
             }
 
         }
@@ -146,207 +158,230 @@ namespace Popis
         }
         private void btnAddCell_Click(object sender, RoutedEventArgs e)
         {
-            bool finded = false;
-            if (txtIDArticle.Text != "" && txtArticleName.Text == "")
-            // Case when user change only quantity for specify barcode
+            try
             {
-                for (int i = 0; i < articles.Count; i++)
+                bool finded = false;
+                if (string.IsNullOrEmpty(txtCurrentAmount.Text))
+                // Case when user change only quantity for specify barcode
                 {
-                    if (articles[i].barkod == txtIDArticle.Text)
+                    for (int i = 0; i < articles.Count; i++)
                     {
-                        finded = true;
-                        articles[i].kolicina = articles[i].kolicina + Int32.Parse(txtQuantity.Text);
-                        // update quantity of filtered field in both case
-                        dt.Rows[i][5] = articles[i].kolicina;
-                        lblLastEdited.Content = txtIDArticle.Text;
-                        lblArticleName.Content = articles[i].naziv;
-                        lblLastQuantity.Content = txtQuantity.Text;
-                        lblPrice.Content = articles[i].cena;
-
-
-
-                        UpdateLog($"[Info]- Dodat artikal na stanje Sirfa: {articles[i].barkod} | Naziv: {articles[i].naziv} | " +
-                                  $"Novo stanje {articles[i].kolicina} | Staro stanje {articles[i].kolicina - Int32.Parse(txtQuantity.Text)}");
-                        Empty();
-                        return;
-
-                    }
-
-                }
-
-
-
-            }
-            else if (txtIDArticle.Text != "" && txtArticleName.Text != "" && txtPrice.Text != "")
-            {
-                // Case when user select item and should change price and total quantity
-                for (int i = 0; i < articles.Count; i++)
-                {
-                    if (articles[i].barkod == txtIDArticle.Text)
-                    {
-                        finded = true;
-                        articles[i].cena = double.Parse(txtPrice.Text);
-
-                        dt.Rows[i][3] = articles[i].cena;
-                        if (articles[i].naziv != txtArticleName.Text)
+                        if (articles[i].barkod == txtIDArticle.Text)
                         {
-                            articles[i].naziv = txtArticleName.Text;
-                            dt.Rows[i][4] = articles[i].naziv;
-                        }
-                        if (articles[i].barkod != txtIDArticle.Text)
-                        {
-                            articles[i].barkod = txtIDArticle.Text;
-                        }
-                        if (txtCurrentAmount.Text != articles[i].kolicina.ToString())
-                        {
-
-                            UpdateLog($"[Info]- Dodat artikal na stanje Sirfa: {articles[i].barkod} | Naziv: {txtArticleName.Text} | " +
-                                 $"Novo stanje  {Int32.Parse(txtCurrentAmount.Text)}| Staro stanje {articles[i].kolicina}");
-
-                            articles[i].kolicina = double.Parse(txtCurrentAmount.Text);
+                            finded = true;
+                            articles[i].kolicina = articles[i].kolicina + double.Parse(txtQuantity.Text);
                             // update quantity of filtered field in both case
                             dt.Rows[i][5] = articles[i].kolicina;
-
                             lblLastEdited.Content = txtIDArticle.Text;
                             lblArticleName.Content = articles[i].naziv;
                             lblLastQuantity.Content = txtQuantity.Text;
                             lblPrice.Content = articles[i].cena;
 
 
+
+                            UpdateLog($"[Info]- Dodat artikal na stanje Sirfa: {articles[i].barkod} | Naziv: {articles[i].naziv} | " +
+                                      $"Novo stanje {articles[i].kolicina} | Staro stanje {articles[i].kolicina - double.Parse(txtQuantity.Text)}");
                             Empty();
+                            return;
 
                         }
-                        else
+
+                    }
+
+
+
+                }
+                else
+                {
+                    // Case when user select item and should change price and total quantity
+                    for (int i = 0; i < articles.Count; i++)
+                    {
+                        if (articles[i].barkod == txtIDArticle.Text)
                         {
-                            articles[i].kolicina = articles[i].kolicina + Int32.Parse(txtQuantity.Text);
-                            // update quantity of filtered field in both case
-                            dt.Rows[i][5] = articles[i].kolicina;
-                            dt.Rows[i][4] = articles[i].naziv;
+                            finded = true;
+                            articles[i].cena = double.Parse(txtPrice.Text);
+
+                            dt.Rows[i][3] = articles[i].cena;
                             if (articles[i].naziv != txtArticleName.Text)
                             {
                                 articles[i].naziv = txtArticleName.Text;
+                                dt.Rows[i][4] = articles[i].naziv;
                             }
                             if (articles[i].barkod != txtIDArticle.Text)
                             {
                                 articles[i].barkod = txtIDArticle.Text;
                             }
-                            lblLastEdited.Content = txtIDArticle.Text;
-                            lblArticleName.Content = articles[i].naziv;
-                            lblLastQuantity.Content = txtQuantity.Text;
-                            lblPrice.Content = articles[i].cena;
+                            if (txtCurrentAmount.Text != articles[i].kolicina.ToString())
+                            {
 
-                            UpdateLog($"[Info]- Dodat artikal na stanje Sirfa: {articles[i].barkod} | Naziv: {articles[i].naziv} | " +
-                                  $"Novo stanje {articles[i].kolicina} | Staro stanje {articles[i].kolicina - Int32.Parse(txtQuantity.Text)}");
-                            Empty();
+                                UpdateLog($"[Info]- Dodat artikal na stanje Sirfa: {articles[i].barkod} | Naziv: {txtArticleName.Text} | " +
+                                     $"Novo stanje  {double.Parse(txtCurrentAmount.Text)}| Staro stanje {articles[i].kolicina}");
+
+                                articles[i].kolicina = double.Parse(txtCurrentAmount.Text);
+                                // update quantity of filtered field in both case
+                                dt.Rows[i][5] = articles[i].kolicina;
+
+                                lblLastEdited.Content = txtIDArticle.Text;
+                                lblArticleName.Content = articles[i].naziv;
+                                lblLastQuantity.Content = txtQuantity.Text;
+                                lblPrice.Content = articles[i].cena;
+
+
+                                Empty();
+
+                            }
+                            else
+                            {
+                                articles[i].kolicina = articles[i].kolicina + double.Parse(txtQuantity.Text);
+                                // update quantity of filtered field in both case
+                                dt.Rows[i][5] = articles[i].kolicina;
+                                dt.Rows[i][4] = articles[i].naziv;
+                                if (articles[i].naziv != txtArticleName.Text)
+                                {
+                                    articles[i].naziv = txtArticleName.Text;
+                                }
+                                if (articles[i].barkod != txtIDArticle.Text)
+                                {
+                                    articles[i].barkod = txtIDArticle.Text;
+                                }
+                                lblLastEdited.Content = txtIDArticle.Text;
+                                lblArticleName.Content = articles[i].naziv;
+                                lblLastQuantity.Content = txtQuantity.Text;
+                                lblPrice.Content = articles[i].cena;
+
+                                UpdateLog($"[Info]- Dodat artikal na stanje Sirfa: {articles[i].barkod} | Naziv: {articles[i].naziv} | " +
+                                      $"Novo stanje {articles[i].kolicina} | Staro stanje {articles[i].kolicina - double.Parse(txtQuantity.Text)}");
+                                Empty();
+
+                            }
+                            return;
 
                         }
-                        return;
 
                     }
 
                 }
 
-            }
-
-            if (!finded)
-            {
-                if (txtArticleName.Text != "" && txtIDArticle.Text != "" && txtPrice.Text != "" && txtQuantity.Text != "")
+                if (!finded)
                 {
-                    Article article = new Article()
+                    if (txtArticleName.Text != "" && txtIDArticle.Text != "" && txtPrice.Text != "" && txtQuantity.Text != "")
                     {
-                        barkod = txtIDArticle.Text,
-                        sifra = txtIDArticle.Text,
-                        vrsta_artikla = 4,
-                        naziv = txtArticleName.Text,
-                        cena = double.Parse(txtPrice.Text),
-                        kolicina = double.Parse(txtQuantity.Text),
-                        porez = 20,
-                        jedinica_mere = "KOM"
-                    };
-                    articles.Add(article);
-                    DataRow dr = dt.NewRow();
+                        Article article = new Article()
+                        {
+                            barkod = txtIDArticle.Text,
+                            sifra = txtIDArticle.Text,
+                            vrsta_artikla = 4,
+                            naziv = txtArticleName.Text,
+                            cena = double.Parse(txtPrice.Text),
+                            kolicina = double.Parse(txtQuantity.Text),
+                            porez = 20,
+                            jedinica_mere = "KOM"
+                        };
+                        articles.Add(article);
+                        DataRow dr = dt.NewRow();
 
-                    dr[0] = article.sifra;
-                    dr[1] = article.porez;
-                    dr[2] = article.jedinica_mere;
-                    dr[3] = article.cena;
-                    dr[4] = article.naziv;
-                    dr[5] = article.kolicina;
-                    dr[6] = article.barkod;
-                    dr[7] = article.vrsta_artikla;
+                        dr[0] = article.sifra;
+                        dr[1] = article.porez;
+                        dr[2] = article.jedinica_mere;
+                        dr[3] = article.cena;
+                        dr[4] = article.naziv;
+                        dr[5] = article.kolicina;
+                        dr[6] = article.barkod;
+                        dr[7] = article.vrsta_artikla;
 
 
-                    dt.Rows.Add(dr);
-                    lblArticleName.Content = article.naziv;
-                    lblLastQuantity.Content = txtQuantity.Text;
-                    lblLastEdited.Content = txtIDArticle.Text;
-                    lblPrice.Content = article.cena;
+                        dt.Rows.Add(dr);
+                        lblArticleName.Content = article.naziv;
+                        lblLastQuantity.Content = txtQuantity.Text;
+                        lblLastEdited.Content = txtIDArticle.Text;
+                        lblPrice.Content = article.cena;
 
-                    UpdateLog($"[Info]- Dodat novi artikal {article.barkod} | {article.naziv} | " +
-                          $" kolicina {article.kolicina}");
-                    Empty();
+                        UpdateLog($"[Info]- Dodat novi artikal {article.barkod} | {article.naziv} | " +
+                              $" kolicina {article.kolicina}");
+                        Empty();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Polja Naziv, Kolicina, Cena, Sifra MORAJU BITI POPUNJENA", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+
                 }
-                else
-                {
-                    MessageBox.Show("Polja Naziv, Kolicina, Cena, Sifra MORAJU BITI POPUNJENA", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
 
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"{ex.InnerException}");
+                UpdateLog($"Greska {ex.InnerException} \n {ex.Message}");
+                btnSave_Click(sender, e);
 
             }
 
         }
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-
-            if (txtIDArticle.Text != "" && txtArticleName.Text == "")
+            try
             {
-                for (int i = 0; i < articles.Count; i++)
+
+                if (txtIDArticle.Text != "" && txtArticleName.Text == "")
                 {
-                    if (articles[i].barkod == txtIDArticle.Text)
+                    for (int i = 0; i < articles.Count; i++)
                     {
-                        if (articles[i].kolicina - Int32.Parse(txtQuantity.Text) >= 0)
+                        if (articles[i].barkod == txtIDArticle.Text)
                         {
+                            if (articles[i].kolicina - double.Parse(txtQuantity.Text) >= 0)
+                            {
 
-                            articles[i].kolicina = articles[i].kolicina - Int32.Parse(txtQuantity.Text);
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Nije moguce da kolicina bude manja od nule! \n Trenutno stanje {articles[i].kolicina}", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                                articles[i].kolicina = articles[i].kolicina - double.Parse(txtQuantity.Text);
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Nije moguce da kolicina bude manja od nule! \n Trenutno stanje {articles[i].kolicina}", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                            UpdateLog($"[Greska]- Nije moguce oduzeti artikal sa stanja  Sirfa: {articles[i].barkod} | Naziv: {articles[i].naziv} | " +
-                                      $" zeljno Novo stanje {articles[i].kolicina - Int32.Parse(txtQuantity.Text)} | trenutno stanje {articles[i].kolicina}");
+                                UpdateLog($"[Greska]- Nije moguce oduzeti artikal sa stanja  Sirfa: {articles[i].barkod} | Naziv: {articles[i].naziv} | " +
+                                          $" zeljno Novo stanje {articles[i].kolicina - double.Parse(txtQuantity.Text)} | trenutno stanje {articles[i].kolicina}");
 
-                            txtIDArticle.Focus();
+                                txtIDArticle.Focus();
+                                return;
+                            }
+                            // update quantity of filtered field in both case
+                            dt.Rows[i][5] = articles[i].kolicina;
+                            lblLastEdited.Content = txtIDArticle.Text;
+                            lblArticleName.Content = articles[i].naziv;
+                            lblLastQuantity.Content = txtQuantity.Text;
+                            lblPrice.Content = articles[i].cena;
+
+
+
+                            UpdateLog($"[Info]- Oduzet artikal sa stanja  Sirfa: {articles[i].barkod} | Naziv: {articles[i].naziv} | " +
+                                      $"Novo stanje {articles[i].kolicina} | Staro stanje {articles[i].kolicina + double.Parse(txtQuantity.Text)}");
+                            Empty();
                             return;
+
                         }
-                        // update quantity of filtered field in both case
-                        dt.Rows[i][5] = articles[i].kolicina;
-                        lblLastEdited.Content = txtIDArticle.Text;
-                        lblArticleName.Content = articles[i].naziv;
-                        lblLastQuantity.Content = txtQuantity.Text;
-                        lblPrice.Content = articles[i].cena;
-
-
-
-                        UpdateLog($"[Info]- Oduzet artikal sa stanja  Sirfa: {articles[i].barkod} | Naziv: {articles[i].naziv} | " +
-                                  $"Novo stanje {articles[i].kolicina} | Staro stanje {articles[i].kolicina + Int32.Parse(txtQuantity.Text)}");
-                        Empty();
-                        return;
 
                     }
 
+
+
                 }
+                else
+                {
 
-
-
+                    MessageBox.Show("Nema artikal sa tom sifrom");
+                    Empty();
+                }
             }
-            else
+            catch (Exception ex)
             {
+                UpdateLog($"Greska {ex.InnerException} \n {ex.Message}");
 
-                MessageBox.Show("Nema artikal sa tom sifrom");
-                Empty();
+                MessageBox.Show($"{ex.InnerException}");
+
+                btnSave_Click(sender, e);
+
             }
-
 
         }
         public void Empty()
@@ -575,28 +610,42 @@ namespace Popis
         /// <param name="e"></param>
         private void btnDeleteCell_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Da li ste sigurni?", "Brisanje", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-
-            if (result == MessageBoxResult.Yes)
+            try
             {
 
-                if (txtFilter.Text != "")
+
+                MessageBoxResult result = MessageBox.Show("Da li ste sigurni?", "Brisanje", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                if (result == MessageBoxResult.Yes)
                 {
 
-                    Article selectedArtical = (Article)dataGridList.SelectedItem;
-                    articles.Remove(selectedArtical);
-                    dt.Rows.RemoveAt(dataGridList.SelectedIndex);
+                    if (txtFilter.Text != "")
+                    {
 
+                        Article selectedArtical = (Article)dataGridList.SelectedItem;
+                        articles.Remove(selectedArtical);
+                        dt.Rows.RemoveAt(dataGridList.SelectedIndex);
+
+                    }
+                    else
+                    {
+                        articles.RemoveAt(dataGridList.SelectedIndex);
+
+                        dt.Rows.RemoveAt(dataGridList.SelectedIndex);
+                    }
+
+                    Empty();
                 }
-                else
-                {
-                    articles.RemoveAt(dataGridList.SelectedIndex);
+            }
+            catch (Exception ex)
+            {
+                UpdateLog($"Greska {ex.InnerException} \n {ex.Message}");
 
-                    dt.Rows.RemoveAt(dataGridList.SelectedIndex);
-                }
+                MessageBox.Show($"{ex.InnerException}");
 
-                Empty();
+                btnSave_Click(sender, e);
+
             }
 
         }
@@ -619,20 +668,26 @@ namespace Popis
         /// <param name="e"></param>
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-
-
-            if (fileNameSave != "")
+            try
             {
-                MessageBoxResult result = MessageBox.Show("Da li zelite da sačuvate pre izlaska?", "Sačuvati", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
+                if (fileNameSave != "")
                 {
+                    MessageBoxResult result = MessageBox.Show("Da li zelite da sačuvate pre izlaska?", "Sačuvati", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
 
 
-                    File.WriteAllText(@$"{fileNameSave}", JsonConvert.SerializeObject(articles));
+                        File.WriteAllText(@$"{fileNameSave}", JsonConvert.SerializeObject(articles));
 
+                        Environment.Exit(0);
 
-                    Environment.Exit(0);
+                    }
+                    else
+                    {
+                        Environment.Exit(0);
+
+                    }
 
                 }
                 else
@@ -640,11 +695,14 @@ namespace Popis
                     Environment.Exit(0);
 
                 }
-
             }
-            else
+            catch (Exception ex)
             {
-                Environment.Exit(0);
+                UpdateLog($"Greska {ex.InnerException} \n {ex.Message}");
+
+                MessageBox.Show($"{ex.InnerException}");
+
+                btnSave_Click(sender, e);
 
             }
         }
@@ -659,8 +717,16 @@ namespace Popis
 
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                txtQuantity.SelectAll();
-                txtQuantity.Focus();
+
+                var art=articles.SingleOrDefault(x=>x.barkod==txtIDArticle.Text);
+                if (art!=null)
+                {
+                    txtArticleName.Text = art.naziv;
+                    txtPrice.Text = art.cena.ToString();
+                    txtQuantity.SelectAll();
+                    txtQuantity.Focus();
+                }
+
 
             }
         }
@@ -690,69 +756,101 @@ namespace Popis
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
 
-            if (fileNameSave != "")
+            try
             {
+                if (fileNameSave != "")
+                {
 
-                File.WriteAllText(@$"{fileNameSave}", JsonConvert.SerializeObject(articles));
-                lblSaveTime.Content = $"Zadnji put: {DateTime.Now.ToString("HH:mm dd/MM/yyyy")}";
+                    File.WriteAllText(@$"{fileNameSave}", JsonConvert.SerializeObject(articles));
+                    lblSaveTime.Content = $"Zadnji put: {DateTime.Now.ToString("HH:mm dd/MM/yyyy")}";
+                    UpdateLog($"Sacuvano trenutno stanje");
+
+                }
+                else
+                {
+                    MessageBox.Show("Niste učitali JSON file", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateLog($"Greska {ex.InnerException} \n {ex.Message}");
+
+                MessageBox.Show($"{ex.InnerException}");
+
+                btnSave_Click(sender, e);
 
             }
-            else
-            {
-                MessageBox.Show("Niste učitali JSON file", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
 
         }
 
         private void btnGenerateAllArticles_Click(object sender, RoutedEventArgs e)
         {
-            string pathFile = getPathNameForNewFile();
-
-            if (pathFile != null)
+            try
             {
+                string pathFile = getPathNameForNewFile();
 
-                SLDocument excel = new SLDocument();
-
-                excel.SetCellValue(1, 1, "Barkod");
-                excel.SetCellValue(1, 2, "Porez");
-                excel.SetCellValue(1, 3, "J-M");
-                excel.SetCellValue(1, 4, "Cena");
-                excel.SetCellValue(1, 5, "Naziv");
-                excel.SetCellValue(1, 6, "Kolicina");
-                excel.SetCellValue(1, 7, "Sifra");
-                excel.SetCellValue(1, 8, "Vrsta artikla");
-                excel.SetCellValue(1, 9, "Suma");
-
-                int row = 2;
-                foreach (Article art in articles)
+                if (!string.IsNullOrEmpty(pathFile))
                 {
-                    excel.SetCellValue(row, 1, art.barkod);
-                    excel.SetCellValue(row, 2, art.porez);
-                    excel.SetCellValue(row, 3, art.jedinica_mere);
-                    excel.SetCellValue(row, 4, art.cena);
-                    excel.SetCellValue(row, 5, art.naziv);
-                    excel.SetCellValue(row, 6, art.kolicina);
-                    excel.SetCellValue(row, 7, art.sifra);
-                    excel.SetCellValue(row, 8, art.vrsta_artikla);
-                    excel.SetCellValue(row, 9, art.cena * art.kolicina);
 
-                    row++;
+                    SLDocument excel = new SLDocument();
+
+                    excel.SetCellValue(1, 1, "Barkod");
+                    excel.SetCellValue(1, 2, "Porez");
+                    excel.SetCellValue(1, 3, "J-M");
+                    excel.SetCellValue(1, 4, "Cena");
+                    excel.SetCellValue(1, 5, "Naziv");
+                    excel.SetCellValue(1, 6, "Kolicina");
+                    excel.SetCellValue(1, 7, "Sifra");
+                    excel.SetCellValue(1, 8, "Vrsta artikla");
+                    excel.SetCellValue(1, 9, "Suma");
+
+                    int row = 2;
+                    foreach (Article art in articles)
+                    {
+                        excel.SetCellValue(row, 1, art.barkod);
+                        excel.SetCellValue(row, 2, art.porez);
+                        excel.SetCellValue(row, 3, art.jedinica_mere);
+                        excel.SetCellValue(row, 4, art.cena);
+                        excel.SetCellValue(row, 5, art.naziv);
+                        excel.SetCellValue(row, 6, art.kolicina);
+                        excel.SetCellValue(row, 7, art.sifra);
+                        excel.SetCellValue(row, 8, art.vrsta_artikla);
+                        excel.SetCellValue(row, 9, art.cena * art.kolicina);
+
+                        row++;
+                    }
+
+                    excel.SaveAs($"{pathFile}.xlsx");
+
+                    MessageBox.Show("Uspešno kreiran fajl", "Obaveštenje", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Process process = new Process();
+                    process.StartInfo.FileName = $"{pathFile}.xlsx";
+                    process.StartInfo.Arguments = "ProcessStart.cs";
+                    process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                    process.StartInfo.UseShellExecute = true;
+                    process.Start();
                 }
-
-                excel.SaveAs($"{pathFile}.xlsx");
-
-                MessageBox.Show("Uspešno kreiran fajl", "Obaveštenje", MessageBoxButton.OK, MessageBoxImage.Information);
-                Process process = new Process();
-                process.StartInfo.FileName = $"{pathFile}.xlsx";
-                process.StartInfo.Arguments = "ProcessStart.cs";
-                process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
-                process.StartInfo.UseShellExecute = true;
-                process.Start();
+                else
+                {
+                    MessageBox.Show("Morate uneti kako će se zvati dokument", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Morate uneti kako će se zvati dokument", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                UpdateLog($"Greska {ex.InnerException} \n {ex.Message}");
+
+                MessageBox.Show($"{ex.InnerException}");
+
+                btnSave_Click(sender, e);
+
+            }
+        }
+
+        private void txtCurrentAmount_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                btnAddCell_Click(sender, e);
             }
         }
     }

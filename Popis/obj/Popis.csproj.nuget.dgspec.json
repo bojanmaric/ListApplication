@@ -1,25 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bojan\\source\\repos\\ListApplication\\Popis\\Popis.csproj": {}
+    "C:\\Users\\bojan\\source\\repos\\ListApplication\\Popis\\Popis.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bojan\\source\\repos\\ListApplication\\Popis\\Popis.csproj": {
+    "C:\\Users\\bojan\\source\\repos\\ListApplication\\Popis\\Popis.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bojan\\source\\repos\\ListApplication\\Popis\\Popis.csproj",
+        "projectUniqueName": "C:\\Users\\bojan\\source\\repos\\ListApplication\\Popis\\Popis.csproj",
         "projectName": "Popis",
-        "projectPath": "C:\\Users\\Bojan\\source\\repos\\ListApplication\\Popis\\Popis.csproj",
-        "packagesPath": "C:\\Users\\Bojan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bojan\\source\\repos\\ListApplication\\Popis\\obj\\",
+        "projectPath": "C:\\Users\\bojan\\source\\repos\\ListApplication\\Popis\\Popis.csproj",
+        "packagesPath": "C:\\Users\\bojan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bojan\\source\\repos\\ListApplication\\Popis\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Bojan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\bojan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -75,16 +70,16 @@
           "warn": true,
           "downloadDependencies": [
             {
-              "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-              "version": "[6.0.8, 6.0.8]"
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[6.0.18, 6.0.18]"
             },
             {
-              "name": "Microsoft.NETCore.App.Runtime.win-x86",
-              "version": "[6.0.8, 6.0.8]"
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[6.0.18, 6.0.18]"
             },
             {
-              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-              "version": "[6.0.8, 6.0.8]"
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[6.0.18, 6.0.18]"
             }
           ],
           "frameworkReferences": {
@@ -95,11 +90,11 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
-        "win-x86": {
+        "win-x64": {
           "#import": []
         }
       }
