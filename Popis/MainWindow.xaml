@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:Popis"
         mc:Ignorable="d"
         Title="POPIS"
-        Height="720"
-        Width="920"
-        ResizeMode="CanMinimize"
+        MinHeight="720"
+        MinWidth="920"
+        d:Width="1920"
+        d:Height="1080"
         WindowStartupLocation="CenterScreen"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -18,26 +19,26 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        WindowStyle="None"
+        WindowStyle="SingleBorderWindow"
         ShowInTaskbar="True">
     <Grid>
 
 
         <!-- To show application in task bar while is in running proccess ShowInTaskbar="True"-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="200" />
-            <RowDefinition Height="auto" />
-
-
+            <RowDefinition MinHeight="80"
+                           Height="auto" />
+            <RowDefinition MinHeight="250"
+                           Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-
-        <Grid Grid.Row="0"
-              Height="100"
-              VerticalAlignment="Top"
-              MouseDown="Grid_MouseDown">
-            <Label Content="File"
+        <!--Header-->
+        <WrapPanel Grid.Row="0"
+                   MouseDown="Grid_MouseDown"
+                   HorizontalAlignment="Center">
+            <!--<Label Content="File"
+                   Visibility="Hidden"
                    HorizontalAlignment="Left"
                    Margin="16,6,0,0"
                    VerticalAlignment="Top"
@@ -46,26 +47,25 @@
                    Width="28" />
 
             <TextBox x:Name="txtFile"
+                     Visibility="Hidden"
                      HorizontalAlignment="Left"
                      Margin="66,3,0,0"
                      TextWrapping="Wrap"
                      VerticalAlignment="Top"
                      Width="302"
                      IsEnabled="False"
-                     Height="27" />
+                     Height="27" />-->
             <Button x:Name="btnFile"
-                    Content="UČITAJ JSON FAJL IZ KASE"
-                    HorizontalAlignment="Left"
-                    Margin="66,42,0,0"
+                    Content="UcitajStart"
                     Cursor="Hand"
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
                     VerticalAlignment="Top"
                     Height="24"
-                    Width="229"
+                    Width="119"
                     IsEnabled="True"
                     Click="btnFile_Click" />
 
-            <Button x:Name="btnExit"
+            <!--<Button x:Name="btnExit"
                     Content="X"
                     Cursor="Hand"
                     HorizontalAlignment="Left"
@@ -79,330 +79,405 @@
                     BorderBrush="#FFDA3929"
                     Background="#FFDA3929"
                     BorderThickness="0,0,0,0"
-                    Click="btnExit_Click" />
+                    Click="btnExit_Click" />-->
+
 
             <Label Content="Zadnji izmenjen"
-                   HorizontalAlignment="Left"
-                   Margin="443,4,0,0"
-                   VerticalAlignment="Top"
-                   FontSize="16"
+                   FontSize="20"
+                   FontWeight="Bold" />
+            <Label Content="Barkod:"
+                   FontSize="20"
+                   Foreground="Gray"
                    FontWeight="Bold"
-                   FontStyle="Oblique"
-                   Width="130" />
+                   Height="28" />
             <Label Content="123"
                    x:Name="lblLastEdited"
                    Foreground="Green"
                    FontSize="20"
-                   HorizontalAlignment="Left"
-                   Margin="614,1,0,0"
-                   VerticalAlignment="Top"
                    FontWeight="ExtraBold"
-                   Height="28"
-                   Width="88" />
+                   Width="90" />
             <Label Content="Text"
                    x:Name="lblArticleName"
                    Foreground="Green"
-                   FontSize="12"
-                   HorizontalAlignment="Left"
-                   Margin="448,65,0,0"
-                   VerticalAlignment="Top"
+                   FontSize="20"
                    FontWeight="ExtraBold"
-                   Height="27"
                    Width="310" />
-            <Label Content="Š"
+
+            <Label Content="Kom:"
                    FontSize="20"
-                   HorizontalAlignment="Left"
-                   Margin="596,2,0,0"
-                   VerticalAlignment="Top"
-                   FontWeight="Bold"
-                   Height="28"
-                   Width="22" />
-            <Label Content="Kom"
-                   FontSize="20"
-                   HorizontalAlignment="Left"
-                   Margin="618,34,0,0"
-                   VerticalAlignment="Top"
-                   FontWeight="Bold"
-                   Height="28"
-                   Width="54" />
+                   Foreground="Gray"
+                   FontWeight="Bold" />
             <Label Content="123"
                    x:Name="lblLastQuantity"
                    Foreground="Green"
                    FontSize="20"
-                   HorizontalAlignment="Left"
-                   Margin="673,0,0,0"
-                   VerticalAlignment="Center"
                    FontWeight="ExtraBold"
-                   Height="28"
-                   Width="88" />
-            <Label Content="Cena"
+                   Width="90" />
+            <Label Content="Cena:"
                    FontSize="20"
-                   HorizontalAlignment="Left"
-                   Margin="454,34,0,0"
-                   VerticalAlignment="Top"
-                   FontWeight="Bold"
-                   Height="28"
-                   Width="54" />
+                   Foreground="Gray"
+                   FontWeight="Bold" />
+
             <Label Content="123"
                    x:Name="lblPrice"
                    Foreground="Green"
                    FontSize="20"
-                   HorizontalAlignment="Left"
-                   Margin="508,0,0,0"
-                   VerticalAlignment="Center"
                    FontWeight="ExtraBold"
-                   Height="28"
-                   Width="91" />
+                   Width="90" />
 
-        </Grid>
-        <Grid Height="200"
-              Grid.Row="1"
-              VerticalAlignment="Top">
-            <Label Content="Šifra artikla"
-                   HorizontalAlignment="Left"
-                   Margin="26,59,0,0"
-                   VerticalAlignment="Top"
-                   Width="84"
-                   Height="26" />
-            <TextBox x:Name="txtIDArticle"
-                     TabIndex="0"
-                     HorizontalAlignment="Left"
-                     Margin="17,80,0,0"
+
+            <!--<TextBox x:Name="txtFilter"
+                     Margin="0"
                      TextWrapping="Wrap"
-                     VerticalAlignment="Top"
-                     Width="93"
-                     Height="31"
+                     Width="269"
+                     Height="37"
                      FontSize="16"
                      FontWeight="Bold"
-                     KeyUp="txtIDArticle_KeyUp" />
-
-            <Label Content="+/- Komada"
+                     Grid.Row="1"
+                     KeyUp="txtFilter_KeyUp" />
+            <Label Content="Pretraga"
                    HorizontalAlignment="Left"
-                   Margin="152,55,0,0"
-                   VerticalAlignment="Top"
-                   Height="26"
-                   Width="95"
-                   FontWeight="Bold"
-                   RenderTransformOrigin="0.492,-0.175" />
-            <TextBox x:Name="txtQuantity"
-                     TabIndex="1"
-                     HorizontalAlignment="Left"
-                     Margin="140,80,0,0"
-                     TextWrapping="Wrap"
-                     VerticalAlignment="Top"
-                     Width="100"
-                     Height="31"
-                     FontSize="16"
-                     FontWeight="Bold"
-                     PreviewTextInput="txtQuantity_PreviewTextInput"
-                     KeyUp="txtQuantity_KeyUp" />
-            <Label Content="Trenutno stanje"
-                   HorizontalAlignment="Left"
-                   Margin="284,56,0,0"
-                   VerticalAlignment="Top"
-                   Height="26"
-                   Width="103"
-                   FontWeight="Bold"
-                   RenderTransformOrigin="0.48,-0.181" />
-            <TextBox x:Name="txtCurrentAmount"
-                     HorizontalAlignment="Left"
-                     Margin="270,79,0,0"
-                     TextWrapping="Wrap"
-                     VerticalAlignment="Top"
-                     Width="120"
-                     Height="31"
-                     FontSize="16"
-                     FontWeight="Bold"
-                     PreviewTextInput="txtQuantity_PreviewTextInput"
-                     KeyUp="txtCurrentAmount_KeyUp" />
-
-            <Label Content="Naziv artikla"
-                   HorizontalAlignment="Left"
-                   Margin="73,2,0,0"
-                   VerticalAlignment="Top"
-                   Width="84"
-                   Height="26" />
-            <TextBox x:Name="txtArticleName"
-                     HorizontalAlignment="Left"
-                     Margin="20,17,0,0"
-                     IsEnabled="False"
-                     TextWrapping="Wrap"
-                     VerticalAlignment="Top"
-                     Width="223"
-                     Height="31"
-                     FontSize="16"
-                     FontWeight="Bold" />
-
-            <Button x:Name="btnAddCell"
-                    TabIndex="3"
-                    Content=" DODAJ&#xA;IZMENI"
-                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    HorizontalAlignment="Left"
-                    Margin="19,125,0,0"
-                    VerticalAlignment="Top"
-                    IsEnabled="{Binding DataContext.ControlsEnabled,
-                    RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Height="45"
-                    Width="120"
-                    Background="#FF2C6AEE"
-                    FontStretch="Normal"
-                    FlowDirection="LeftToRight"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Cursor="Hand"
-                    Click="btnAddCell_Click"
-                    BorderBrush="#FFA7A2EA"
-                    BorderThickness="0,0,0,0" />
-            <Button x:Name="btnDeleteCell"
-                    Content="IZBRIŠI STAVKU"
-                    Cursor="Hand"
-                    HorizontalAlignment="Left"
-                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    Margin="438,10,0,0"
-                    VerticalAlignment="Top"
-                    Height="40"
-                    Width="138"
-                    Background="#FFDA3929"
-                    BorderThickness="0,0,0,0"
-                    Click="btnDeleteCell_Click"
-                    IsEnabled="False" />
-
-            <Button x:Name="btnGenerate"
-                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    Content="   KREIRAJ EXCEL FAJL &#xA;ARTIKLE SA KOLIČINOM"
-                    Cursor="Hand"
-                    Margin="736,87,0,0"
-                    Height="46"
-                    Width="154"
-                    FontSize="12"
-                    Click="btnGenerate_Click"
-                    Background="#189510"
-                    BorderThickness="0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top" />
-            <TextBox x:Name="txtPrice"
-                     HorizontalAlignment="Left"
-                     Margin="280,15,0,0"
-                     TextWrapping="Wrap"
-                     VerticalAlignment="Top"
-                     IsEnabled="False"
-                     Width="100"
-                     Height="31"
-                     FontSize="16"
-                     FontWeight="Bold"
-                     PreviewTextInput="txtQuantity_PreviewTextInput" />
-            <Label Content="Cena"
-                   HorizontalAlignment="Left"
-                   Margin="308,0,0,0"
+                   Margin="0"
                    VerticalAlignment="Top"
                    Height="26"
                    Width="63"
-                   FontWeight="Bold" />
-            <Button x:Name="btnClean"
-                    Content="OČISTI POLJA"
-                    Cursor="Hand"
-                    HorizontalAlignment="Left"
-                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    Margin="436,64,0,0"
-                    VerticalAlignment="Top"
-                    Height="41"
-                    Width="140"
-                    Background="#8E1BDD"
-                    BorderThickness="0,0,0,0"
-                    Click="btnClean_Click" />
-            <Button x:Name="btnSave"
-                    HorizontalAlignment="Left"
-                    Margin="735,6,0,0"
-                    VerticalAlignment="Top"
-                    Height="45"
-                    Width="158"
-                    Background="#FF2C6AEE"
-                    Cursor="Hand"
-                    BorderBrush="#FFA7A2EA"
-                    BorderThickness="0,0,0,0"
-                    Click="btnSave_Click">
+                   FontWeight="Bold"
+                   Grid.Row="1" />-->
 
-                <Grid>
+        </WrapPanel>
+
+        <!--Action bar-->
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Center">
+            <!--<label content="+/- komada"
+                   horizontalalignment="left"
+                   margin="152,55,0,0"
+                   verticalalignment="top"
+                   height="26"
+                   width="95"
+                   fontweight="bold"
+                   rendertransformorigin="0.492,-0.175" />
+            <textbox x:name="txtquantity"
+                     tabindex="1"
+                     horizontalalignment="left"
+                     margin="140,80,0,0"
+                     textwrapping="wrap"
+                     verticalalignment="top"
+                     width="100"
+                     height="31"
+                     fontsize="16"
+                     fontweight="bold"
+                     previewtextinput="txtquantity_previewtextinput"
+                     keyup="txtquantity_keyup" />
+            <label content="trenutno stanje"
+                   horizontalalignment="left"
+                   margin="284,56,0,0"
+                   verticalalignment="top"
+                   height="26"
+                   width="103"
+                   fontweight="bold"
+                   rendertransformorigin="0.48,-0.181" />
+            <textbox x:name="txtcurrentamount"
+                     horizontalalignment="left"
+                     margin="270,79,0,0"
+                     textwrapping="wrap"
+                     verticalalignment="top"
+                     width="120"
+                     height="31"
+                     fontsize="16"
+                     fontweight="bold"
+                     previewtextinput="txtquantity_previewtextinput"
+                     keyup="txtcurrentamount_keyup" />
+            <label content="šifra artikla"
+                   horizontalalignment="left"
+                   margin="26,59,0,0"
+                   verticalalignment="top"
+                   width="84"
+                   height="26" />
+            <textbox x:name="txtidarticle"
+                      
+                     horizontalalignment="left"
+                     margin="17,80,0,0"
+                     textwrapping="wrap"
+                     verticalalignment="top"
+                     width="93"
+                     height="31"
+                     fontsize="16"
+                     fontweight="bold"
+                     keyup="txtidarticle_keyup" />
+            <label content="naziv artikla"
+                   horizontalalignment="left"
+                   margin="73,2,0,0"
+                   verticalalignment="top"
+                   width="84"
+                   height="26" />
+            <textbox x:name="txtarticlename"
+                     horizontalalignment="left"
+                     margin="20,17,0,0"
+                     isenabled="false"
+                     textwrapping="wrap"
+                     verticalalignment="top"
+                     width="223"
+                     height="31"
+                     fontsize="16"
+                     fontweight="bold" />
+            <textbox x:name="txtprice"
+              
+                     textwrapping="wrap"
+                     isenabled="false"
+                     width="100"
+                     height="31"
+                     fontsize="16"
+                     fontweight="bold"
+                     previewtextinput="txtquantity_previewtextinput" />
+            <label content="cena"
+                   
+                   height="26"
+                   width="63"
+                   fontweight="bold" />
+            <button x:name="btnsave"
+                    visibility="hidden"
+                    
+                    height="40"
+                    width="150"
+                    background="#ff2c6aee"
+                    cursor="hand"
+                    borderbrush="#ffa7a2ea"
+                    borderthickness="0,0,0,0"
+                    click="btnsave_click">
+
+                <grid>
+                    <grid.rowdefinitions>
+                        <rowdefinition height="24*" />
+                        <rowdefinition height="7*" />
+                    </grid.rowdefinitions>
+                    <materialdesign:packicon width="30"
+                                             height="30"
+                                             kind="contentsave"
+                                             margin="-33,0,0,0"
+                                             grid.rowspan="2" />
+                    <label content="sačuvaj"
+                           foreground="#fff"
+                           margin="11,3,-11,-3"
+                           grid.rowspan="2" />
+
+                </grid>
+            </button>
+            
+            <button x:name="btnmerge"
+                    visibility="hidden"
+                    
+                    height="27"
+                    width="78"
+                    background="blue"
+                    content="spoji"
+                    cursor="hand"
+                    borderbrush="#ffa7a2ea"
+                    borderthickness="0,0,0,0"
+                    click="btnmerge_click" />
+            <label x:name="lblsavetime"
+                  
+                   fontsize="12"
+                   fontweight="extrabold"
+                   foreground="#ff2c6aee"
+                   content="zadnji put: "
+                   width="181" />-->
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <!--All action-->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="24*" />
-                        <RowDefinition Height="7*" />
+                        <RowDefinition  Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <materialDesign:PackIcon Width="30"
-                                             Height="30"
-                                             Kind="ContentSave"
-                                             Margin="-33,0,0,0"
-                                             Grid.RowSpan="2" />
-                    <Label Content="SAČUVAJ"
-                           Foreground="#FFF"
-                           Margin="11,3,-11,-3"
-                           Grid.RowSpan="2" />
+                    <StackPanel Grid.Row="0"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                MinWidth="500">
+                        <TextBox Width="320"
+                                 x:Name="txtArticleName"
+                                 Margin="10,5"
+                                 VerticalAlignment="Top"
+                                 materialDesign:HintAssist.Hint="Naziv artikla"
+                                 AcceptsReturn="True"
+                                 IsEnabled="False"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto" />
+                        <TextBox Width="130"
+                                 x:Name="txtPrice"
+                                 IsEnabled="False"
+                                 Margin="10,5"
+                                 VerticalAlignment="Top"
+                                 materialDesign:HintAssist.Hint="Cena"
+                                 AcceptsReturn="True"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                        <TextBox Width="120"
+                                 x:Name="txtIDArticle"
+                                 Margin="10,5"
+                                 TabIndex="0"
+                                 VerticalAlignment="Top"
+                                 materialDesign:HintAssist.Hint="Barkod"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 PreviewTextInput="txtQuantity_PreviewTextInput"
+                                 KeyUp="txtIDArticle_KeyUp" />
+                        <TextBox Width="120"
+                                 x:Name="txtQuantity"
+                                 Margin="10,5"
+                                 TabIndex="1"
+                                 VerticalAlignment="Top"
+                                 materialDesign:HintAssist.Hint="+/- Komada"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 PreviewTextInput="txtQuantity_PreviewTextInput"
+                                 KeyUp="txtQuantity_KeyUp" />
+
+                        <TextBox Width="140"
+                                 x:Name="txtCurrentAmount"
+                                 Margin="10,5"
+                                 IsEnabled="False"
+                                 VerticalAlignment="Top"
+                                 materialDesign:HintAssist.Hint="Trenutno stanje"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 PreviewTextInput="txtQuantity_PreviewTextInput"
+                                 KeyUp="txtCurrentAmount_KeyUp" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                        <Button x:Name="btnAddCell"
+                                TabIndex="3"
+                                Content="DODAJ"
+                                Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                                IsEnabled="{Binding DataContext.ControlsEnabled,RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Height="40"
+                                Width="120"
+                                Margin="10"
+                                Background="#FF2C6AEE"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                Cursor="Hand"
+                                Click="btnAddCell_Click"
+                                BorderBrush="#FFA7A2EA"
+                                BorderThickness="0,0,0,0" />
+
+                        <Button x:Name="btnRemove"
+                                TabIndex="3"
+                                Content="ODUZMI "
+                                Margin="10"
+                                Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                Height="40"
+                                Width="120"
+                                Background="#FFDA3929"
+                                BorderThickness="0,0,0,0"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                Click="btnRemove_Click" />
+
+                    </StackPanel>
+
 
                 </Grid>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
 
+                    <!--<Button x:Name="btnDeleteCell"
+                            Content="IZBRIŠI STAVKU"
+                            Cursor="Hand"
+                            Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                            Height="40"
+                            Width="150"
+                            Margin="20"
+                            Background="#FFDA3929"
+                            BorderThickness="0,0,0,0"
+                            Click="btnDeleteCell_Click"
+                            IsEnabled="False" />-->
+                    <Button x:Name="btnClean"
+                            Content="OČISTI POLJA"
+                            Cursor="Hand"
+                            Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                            Height="40"
+                            Width="150"
+                            Background="#8E1BDD"
+                            BorderThickness="0,0,0,0"
+                            Click="btnClean_Click" />
 
+                </StackPanel>
+                <StackPanel Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            Margin="100,0,0,0">
+                    <Button x:Name="btnGenerate"
+                            Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                            Content="KREIRAJ EXCEL FAJL &#xA;ARTIKLE SA KOLIČINOM"
+                            Margin="20"
+                            Cursor="Hand"
+                            Height="40"
+                            FontSize="12"
+                            Click="btnGenerate_Click"
+                            Background="#189510"
+                            BorderThickness="0" />
+                    <Button x:Name="btnGenerateAllArticles"
+                            Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                            Content="  KREIRAJ EXEL &#xD;&#xA;SVIH ARTIKALA"
+                            Cursor="Hand"
+                            Height="40"
+                            Width="150"
+                            FontSize="12"
+                            Background="#176510"
+                            BorderThickness="0"
+                            Click="btnGenerateAllArticles_Click" />
+                </StackPanel>
 
-            </Button>
-            <Button x:Name="btnMerge"
-                    HorizontalAlignment="Left"
-                    Margin="320,-60,0,0"
-                    VerticalAlignment="Top"
-                    Height="27"
-                    Width="78"
-                    Background="Blue"
-                    Content="Spoji"
-                    Cursor="Hand"
-                    BorderBrush="#FFA7A2EA"
-                    BorderThickness="0,0,0,0"
-                    Click="btnMerge_Click" />
-            <Label x:Name="lblSaveTime"
-                   HorizontalAlignment="Right"
-                   Margin="0,56,8,0"
-                   VerticalAlignment="Top"
-                   FontSize="12"
-                   FontWeight="ExtraBold"
-                   Foreground="#FF2C6AEE"
-                   Content="Zadnji put: "
-                   Width="181" />
-            <Button x:Name="btnRemove"
-                    TabIndex="3"
-                    Content="ODUZMI "
-                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    HorizontalAlignment="Left"
-                    Margin="176,125,0,0"
-                    VerticalAlignment="Top"
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                    Height="45"
-                    Width="120"
-                    Background="#FFDA3929"
-                    BorderThickness="0,0,0,0"
-                    FontStretch="Normal"
-                    FlowDirection="LeftToRight"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Cursor="Hand"
-                    BorderBrush="#FFA7A2EA"
-                    Click="btnRemove_Click" />
-            <Button x:Name="btnGenerateAllArticles"
-                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    Content="  KREIRAJ EXEL &#xD;&#xA;SVIH ARTIKALA"
-                    Cursor="Hand"
-                    Margin="733,143,0,0"
-                    Height="46"
-                    Width="158"
-                    FontSize="12"
-                    Background="#176510"
-                    BorderThickness="0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Click="btnGenerateAllArticles_Click" />
+            </Grid>
+            <!--Search bar-->
+            <TextBox Grid.Row="1"
+                     Width="450"
+                     x:Name="txtFilter"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Center"
+                     materialDesign:HintAssist.Hint="Pretraga"
+                     AcceptsReturn="True"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     KeyUp="txtFilter_KeyUp"
+                     VerticalScrollBarVisibility="Auto" />
         </Grid>
-        <Grid Grid.Row="2"
-              Height="400"
-              VerticalAlignment="Top">
+
+        <!--Data grid / footer-->
+        <Grid Grid.Row="2">
+
             <DataGrid x:Name="dataGridList"
-                      d:ItemsSource="{d:SampleData ItemCount=5}"
+                      AutoGenerateColumns="False"
                       Margin="10"
-                      MouseDoubleClick="dataGridList_MouseDoubleClick" />
+                      MouseDoubleClick="dataGridList_MouseDoubleClick"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Barkod"
+                                        Binding="{Binding barkod}" />
+                    <DataGridTextColumn Header="Cena"
+                                        Binding="{Binding cena}" />
+                    <DataGridTextColumn Header="Količina"
+                                        Binding="{Binding kolicina}" />
+                    <DataGridTextColumn Header="Naziv"
+                                        Binding="{Binding naziv}" />
+
+                </DataGrid.Columns>
+            </DataGrid>
 
             <Expander x:Name="explanderLog"
                       ExpandDirection="Down"
@@ -410,7 +485,7 @@
                       Background="Silver"
                       IsExpanded="False"
                       VerticalAlignment="Bottom"
-                      Margin="0,0,0,-20">
+                      Margin="0">
                 <Expander.Header>
                     <BulletDecorator>
                         <TextBlock HorizontalAlignment="Center"
@@ -433,28 +508,6 @@
                 </Expander.Content>
             </Expander>
         </Grid>
-
-
-        <TextBox x:Name="txtFilter"
-                 HorizontalAlignment="Left"
-                 Margin="356,139,0,0"
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Top"
-                 Width="269"
-                 Height="37"
-                 FontSize="16"
-                 FontWeight="Bold"
-                 Grid.Row="1"
-                 KeyUp="txtFilter_KeyUp" />
-        <Label Content="Pretraga"
-               HorizontalAlignment="Left"
-               Margin="455,128,0,0"
-               VerticalAlignment="Top"
-               Height="26"
-               Width="63"
-               FontWeight="Bold"
-               Grid.Row="1" />
-
 
     </Grid>
 </Window>

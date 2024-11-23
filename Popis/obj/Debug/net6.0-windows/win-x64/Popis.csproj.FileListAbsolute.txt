@@ -526,3 +526,10 @@ C:\Users\bojan\source\repos\ListApplication\Popis\obj\Debug\net6.0-windows\win-x
 C:\Users\bojan\source\repos\ListApplication\Popis\obj\Debug\net6.0-windows\win-x64\Popis.pdb
 C:\Users\bojan\source\repos\ListApplication\Popis\obj\Debug\net6.0-windows\win-x64\Popis.genruntimeconfig.cache
 C:\Users\bojan\source\repos\ListApplication\Popis\obj\Debug\net6.0-windows\win-x64\ref\Popis.dll
+C:\Users\bojan\source\repos\ListApplication\Popis\bin\Debug\net6.0-windows\win-x64\DnsClient.dll
+C:\Users\bojan\source\repos\ListApplication\Popis\bin\Debug\net6.0-windows\win-x64\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\bojan\source\repos\ListApplication\Popis\bin\Debug\net6.0-windows\win-x64\MongoDB.Bson.dll
+C:\Users\bojan\source\repos\ListApplication\Popis\bin\Debug\net6.0-windows\win-x64\MongoDB.Driver.dll
+C:\Users\bojan\source\repos\ListApplication\Popis\bin\Debug\net6.0-windows\win-x64\SharpCompress.dll
+C:\Users\bojan\source\repos\ListApplication\Popis\bin\Debug\net6.0-windows\win-x64\Snappier.dll
+C:\Users\bojan\source\repos\ListApplication\Popis\bin\Debug\net6.0-windows\win-x64\ZstdSharp.dll
