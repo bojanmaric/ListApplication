@@ -20,12 +20,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SpreadsheetLight;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System.Collections.ObjectModel;
 
 namespace Popis
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public class Article
     {
         public string barkod { get; set; }
@@ -180,7 +179,7 @@ namespace Popis
 
 
                             UpdateLog($"[Info]- Dodat artikal na stanje Sirfa: {articles[i].barkod} | Naziv: {articles[i].naziv} | " +
-                                      $"Novo stanje {articles[i].kolicina} | Staro stanje {articles[i].kolicina - double.Parse(txtQuantity.Text)}");
+                                      $"Novo stanje {articles[i].kolicina} | Staro stanje {articles[i].kolicina - double.Parse(txtQuantity.Text)} | Cena: {articles[i].cena}");
                             Empty();
                             return;
 
@@ -215,7 +214,7 @@ namespace Popis
                             {
 
                                 UpdateLog($"[Info]- Dodat artikal na stanje Sirfa: {articles[i].barkod} | Naziv: {txtArticleName.Text} | " +
-                                     $"Novo stanje  {double.Parse(txtCurrentAmount.Text)}| Staro stanje {articles[i].kolicina}");
+                                     $"Novo stanje  {double.Parse(txtCurrentAmount.Text)}| Staro stanje {articles[i].kolicina} | Cena: {articles[i].cena}");
 
                                 articles[i].kolicina = double.Parse(txtCurrentAmount.Text);
                                 // update quantity of filtered field in both case
@@ -324,7 +323,7 @@ namespace Popis
             try
             {
 
-                if (txtIDArticle.Text != "" && txtArticleName.Text == "")
+                if (txtIDArticle.Text != "" && string.IsNullOrEmpty(txtCurrentAmount.Text))
                 {
                     for (int i = 0; i < articles.Count; i++)
                     {
@@ -853,5 +852,118 @@ namespace Popis
                 btnAddCell_Click(sender, e);
             }
         }
+
+        private void btnMerge_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OpenFileDialog file = new OpenFileDialog();
+                file.Filter = "Json files (*.json)|*.json|Text files (*.txt)|*.txt";
+                file.ShowDialog();
+
+              
+
+                if (!string.IsNullOrEmpty(file.FileName))
+                {
+                    List<Article> druga= JsonConvert.DeserializeObject<List<Article>>(File.ReadAllText(file.FileName))!;
+
+                    var newList = MergeArrays(druga);
+                    string pathFile = getPathNameForNewFile();
+                    if (!string.IsNullOrEmpty(pathFile))
+                    {
+
+                        SLDocument excel = new SLDocument();
+
+                        excel.SetCellValue(1, 1, "Barkod");
+                        excel.SetCellValue(1, 2, "Porez");
+                        excel.SetCellValue(1, 3, "J-M");
+                        excel.SetCellValue(1, 4, "Cena");
+                        excel.SetCellValue(1, 5, "Naziv");
+                        excel.SetCellValue(1, 6, "Kolicina");
+                        excel.SetCellValue(1, 7, "Sifra");
+                        excel.SetCellValue(1, 8, "Vrsta artikla");
+                        excel.SetCellValue(1, 9, "Suma");
+
+                        int row = 2;
+                        foreach (Article art in newList)
+                        {
+                            excel.SetCellValue(row, 1, art.barkod);
+                            excel.SetCellValue(row, 2, art.porez);
+                            excel.SetCellValue(row, 3, art.jedinica_mere);
+                            excel.SetCellValue(row, 4, art.cena);
+                            excel.SetCellValue(row, 5, art.naziv);
+                            excel.SetCellValue(row, 6, art.kolicina);
+                            excel.SetCellValue(row, 7, art.sifra);
+                            excel.SetCellValue(row, 8, art.vrsta_artikla);
+                            excel.SetCellValue(row, 9, art.cena * art.kolicina);
+
+                            row++;
+                        }
+
+                        excel.SaveAs($"{pathFile}.xlsx");
+                        File.WriteAllText(@$"{pathFile}.json", JsonConvert.SerializeObject(newList));
+
+                        MessageBox.Show("Uspešno kreiran fajl", "Obaveštenje", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Process process = new Process();
+                        process.StartInfo.FileName = $"{pathFile}.xlsx";
+                        process.StartInfo.Arguments = "ProcessStart.cs";
+                        process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                        process.StartInfo.UseShellExecute = true;
+                        process.Start();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Morate uneti kako će se zvati dokument", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public List<Article> MergeArrays(List<Article> array2)
+        {
+            // Create a dictionary to store articles using a unique identifier
+            var articlesDictionary = new Dictionary<string, Article>();
+
+            // Add articles from array1 to the dictionary
+            foreach (var article in articles)
+            {
+                if (!articlesDictionary.ContainsKey(article.barkod))
+                {
+                    articlesDictionary.Add(article.barkod, article);
+                }
+                else
+                {
+                    // Merge kolicina values if the article already exists
+                    articlesDictionary[article.barkod].kolicina += article.kolicina;
+                }
+            }
+
+            // Add articles from array2 to the dictionary
+            foreach (var article in array2)
+            {
+                if (!articlesDictionary.ContainsKey(article.barkod))
+                {
+                    articlesDictionary.Add(article.barkod, article);
+                }
+                else
+                {
+                    // Merge kolicina values if the article already exists
+                    articlesDictionary[article.sifra].kolicina += article.kolicina;
+                }
+            }
+
+            // Convert the dictionary values back to a list
+            var mergedArray = new List<Article>(articlesDictionary.Values);
+
+            return mergedArray;
+        }
     }
+
 }

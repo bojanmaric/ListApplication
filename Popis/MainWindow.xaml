@@ -22,7 +22,7 @@
         ShowInTaskbar="True">
     <Grid>
 
-        
+
         <!-- To show application in task bar while is in running proccess ShowInTaskbar="True"-->
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
@@ -61,7 +61,7 @@
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
                     VerticalAlignment="Top"
                     Height="24"
-                    Width="302"
+                    Width="229"
                     IsEnabled="True"
                     Click="btnFile_Click" />
 
@@ -235,7 +235,7 @@
 
             <Button x:Name="btnAddCell"
                     TabIndex="3"
-                    Content=" DODAJ&#xA;STAVKU"
+                    Content=" DODAJ&#xA;IZMENI"
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
                     HorizontalAlignment="Left"
                     Margin="19,125,0,0"
@@ -258,7 +258,7 @@
                     Cursor="Hand"
                     HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    Margin="458,5,0,0"
+                    Margin="438,10,0,0"
                     VerticalAlignment="Top"
                     Height="40"
                     Width="138"
@@ -271,9 +271,9 @@
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
                     Content="   KREIRAJ EXCEL FAJL &#xA;ARTIKLE SA KOLIČINOM"
                     Cursor="Hand"
-                    Margin="722,87,0,0"
+                    Margin="736,87,0,0"
                     Height="46"
-                    Width="177"
+                    Width="154"
                     FontSize="12"
                     Click="btnGenerate_Click"
                     Background="#189510"
@@ -286,7 +286,6 @@
                      TextWrapping="Wrap"
                      VerticalAlignment="Top"
                      IsEnabled="False"
-                     
                      Width="100"
                      Height="31"
                      FontSize="16"
@@ -304,7 +303,7 @@
                     Cursor="Hand"
                     HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-                    Margin="455,64,0,0"
+                    Margin="436,64,0,0"
                     VerticalAlignment="Top"
                     Height="41"
                     Width="140"
@@ -322,6 +321,7 @@
                     BorderBrush="#FFA7A2EA"
                     BorderThickness="0,0,0,0"
                     Click="btnSave_Click">
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="24*" />
@@ -342,6 +342,18 @@
 
 
             </Button>
+            <Button x:Name="btnMerge"
+                    HorizontalAlignment="Left"
+                    Margin="320,-60,0,0"
+                    VerticalAlignment="Top"
+                    Height="27"
+                    Width="78"
+                    Background="Blue"
+                    Content="Spoji"
+                    Cursor="Hand"
+                    BorderBrush="#FFA7A2EA"
+                    BorderThickness="0,0,0,0"
+                    Click="btnMerge_Click" />
             <Label x:Name="lblSaveTime"
                    HorizontalAlignment="Right"
                    Margin="0,56,8,0"
@@ -353,7 +365,7 @@
                    Width="181" />
             <Button x:Name="btnRemove"
                     TabIndex="3"
-                    Content="ODUZMI &#xD;&#xA;STAVKU"
+                    Content="ODUZMI "
                     Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
                     HorizontalAlignment="Left"
                     Margin="176,125,0,0"
